@@ -1,4 +1,4 @@
-"use client";
+"use server";
 
 import { syncUser } from "@/lib/actions/users";
 import { useUser } from "@clerk/nextjs";
