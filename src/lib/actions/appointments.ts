@@ -40,11 +40,9 @@ export async function getAppointments() {
 
 export async function getUserAppointments() {
   try {
-    // get authenticated user from Clerk
     const { userId } = await auth();
     if (!userId) throw new Error("You must be logged in to view appointments");
 
-    // find user by clerkId from authenticated session
     const user = await prisma.user.findUnique({ where: { clerkId: userId } });
     if (!user) throw new Error("User not found. Please ensure your account is properly set up.");
 
@@ -73,7 +71,6 @@ export async function getUserAppointmentStats() {
 
     if (!user) throw new Error("User not found");
 
-    // these calls will run in parallel, instead of waiting each other
     const [totalCount, completedCount] = await Promise.all([
       prisma.appointment.count({
         where: { userId: user.id },
@@ -103,7 +100,7 @@ export async function getBookedTimeSlots(doctorId: string, date: string) {
         doctorId,
         date: new Date(date),
         status: {
-          in: ["CONFIRMED", "COMPLETED"], // consider both confirmed and completed appointments as blocking
+          in: ["CONFIRMED", "COMPLETED"],
         },
       },
       select: { time: true },
@@ -112,7 +109,7 @@ export async function getBookedTimeSlots(doctorId: string, date: string) {
     return appointments.map((appointment) => appointment.time);
   } catch (error) {
     console.error("Error fetching booked time slots:", error);
-    return []; // return empty array if there's an error
+    return [];
   }
 }
 
