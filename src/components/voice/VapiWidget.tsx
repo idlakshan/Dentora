@@ -92,7 +92,7 @@ function VapiWidget() {
         setConnecting(true);
         setMessages([]);
         setCallEnded(false);
-
+        
         await vapi.start(process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID);
       } catch (error) {
         console.log("Failed to start call", error);
@@ -241,7 +241,7 @@ function VapiWidget() {
                   System:
                 </div>
                 <p className="text-foreground">
-                  Call ended. Thank you for using DentWise AI!
+                  Call ended. Thank you for using Dentora AI!
                 </p>
               </div>
             )}

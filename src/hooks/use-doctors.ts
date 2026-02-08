@@ -2,6 +2,7 @@
 
 import {
   createDoctor,
+  getAvailableDoctors,
   getDoctors,
   updateDoctor,
 } from "@/lib/actions/doctors";
@@ -41,4 +42,13 @@ export function useUpdateDoctor() {
     },
     onError: (error) => console.error("Failed to update doctor:", error),
   });
+}
+
+export function useAvailableDoctors() {
+  const result = useQuery({
+    queryKey: ["getAvailableDoctors"],
+    queryFn: getAvailableDoctors,
+  });
+
+  return result;
 }
